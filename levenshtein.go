@@ -51,6 +51,10 @@ func ComputeDistance(a, b string) int {
 	lenS1 := len(s1)
 	lenS2 := len(s2)
 
+	if lenS1 == 0 {
+		return lenS2
+	}
+
 	// Init the row.
 	var x []uint16
 	if lenS1+1 > minLengthThreshold {
