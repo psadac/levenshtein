@@ -90,20 +90,19 @@ func ComputeDistance(a, b string) int {
 }
 
 func trimLongestCommonSuffix(a, b []rune) ([]rune, []rune) {
-	m := min(len(a), len(b))
-	a2 := a[len(a)-m:]
-	b2 := b[len(b)-m:]
-	i := len(a2)
-	b2 = b2[:i] // hoist bounds checks out of the loop
-	for ; i > 0 && a2[i-1] == b2[i-1]; i-- {
+	la, lb := len(a), len(b)
+	b2 := b[lb-la:]
+	b2 = b2[:la] // hoist bounds checks out of the loop
+	i := la
+	for ; i > 0 && a[i-1] == b2[i-1]; i-- {
 		// deliberately empty body
 	}
-	return a[:len(a)-len(a2)+i], b[:len(b)-len(b2)+i]
+	return a[:i], b[:len(b)-len(b2)+i]
 }
 
 func trimLongestCommonPrefix(a, b []rune) ([]rune, []rune) {
 	var i int
-	for m := min(len(a), len(b)); i < m && a[i] == b[i]; i++ {
+	for ; i < len(a) && a[i] == b[i]; i++ {
 		// deliberately empty body
 	}
 	return a[i:], b[i:]
