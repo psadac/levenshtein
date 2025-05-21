@@ -68,8 +68,7 @@ func ComputeDistance(a, b string) int {
 		x = x[:lenS1+1]
 	}
 
-	// we start from 1 because index 0 is already 0.
-	for i := 1; i < len(x); i++ {
+	for i := range x {
 		x[i] = uint16(i)
 	}
 
@@ -78,12 +77,12 @@ func ComputeDistance(a, b string) int {
 	y := x[1:]
 	y = y[:lenS1]
 	// fill in the rest
-	for i := 0; i < lenS2; i++ {
+	for i := range lenS2 {
 		prev := uint16(i + 1)
-		for j := 0; j < lenS1; j++ {
+		for j := range lenS1 {
 			current := x[j] // match
 			if s2[i] != s1[j] {
-				current = min(x[j], prev, y[j]) + 1
+				current = min(current, prev, y[j]) + 1
 			}
 			x[j] = prev
 			prev = current
